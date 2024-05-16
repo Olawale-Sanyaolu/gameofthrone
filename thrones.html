@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game of Thrones App</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Game of Thrones</h1>
+    <h2>Book Information</h2>
+    <div id="book-info"></div>
+    <h2>Character Information</h2>
+    <div id="character-info"></div>
+    <h2>House Information</h2>
+    <div id="house-info"></div>
+</div>
+
+<script>
+    const bookUrl = 'https://anapioficeandfire.com/api/books/1';
+    const characterUrl = 'https://anapioficeandfire.com/api/characters/583';
+    const houseUrl = 'https://anapioficeandfire.com/api/houses/378';
+
+    function fetchData(url, targetElement) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                let html = '';
+                for (const key in data) {
+                    html += `<p><strong>${key}:</strong> ${data[key]}</p>`;
+                }
+                document.getElementById(targetElement).innerHTML = html;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    fetchData(bookUrl, 'book-info');
+    fetchData(characterUrl, 'character-info');
+    fetchData(houseUrl, 'house-info');
+</script>
+</body>
+</html>
